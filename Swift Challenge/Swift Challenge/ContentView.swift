@@ -12,6 +12,9 @@ struct ContentView: View {
     @State var playerTwoPoints = 10
     @State var playerOneImage = "Stone"
     @State var playerTwoImage = "Paper"
+    @State var playerOneTap = 1
+    @State var playerTwoTap = 2
+    @State var presentAlert = true
     var body: some View {
         ZStack{
             Color.white
@@ -20,27 +23,35 @@ struct ContentView: View {
             Text("Points: \(playerOnePoints)")
                 .font(.system(size: 25))
                 .bold()
-
+            Spacer()
             Image(playerOneImage)
                 .resizable()
-                .frame(width: 400.0, height: 400.0)
                 .onTapGesture {
-                    let myTap = Int.random(in: 1...3)
-                    playerOneImage = imageGenerator(myTap)
+                    playerOneTap = Int.random(in: 1...3)
+                    playerOneImage = imageGenerator(playerOneTap)
+                    calculatePoints(playerOneTap, playerTwoTap)
                 }
         
             Image(playerTwoImage)
                 .resizable()
-                .frame(width: 400.0, height: 400.0)
+                
                 .onTapGesture {
-                    let myTap = Int.random(in: 1...3)
-                    playerTwoImage = imageGenerator(myTap)
+                     playerTwoTap = Int.random(in: 1...3)
+                    playerTwoImage = imageGenerator(playerTwoTap)
+                    calculatePoints(playerOneTap, playerTwoTap)
                 }
             
             Text("Points: \(playerTwoPoints)")
                 .font(.system(size: 25))
                 .bold()
+            Spacer()
         }
+         .frame(
+            minWidth: 0,
+            maxWidth: 400,
+            minHeight: 0,
+            maxHeight: 900
+          )
         }
     }
     
@@ -54,6 +65,26 @@ struct ContentView: View {
         }
         return "Stone"
     }
+    func calculatePoints(_ one:Int,_ two:Int){
+        if 	one == 1 && two == 2{
+            playerTwoPoints = playerTwoPoints + 1
+        }
+        if     one == 1 && two == 3{
+            playerOnePoints = playerOnePoints + 1
+        }
+        if     one == 2 && two == 1{
+            playerOnePoints = playerOnePoints + 1
+        }
+        if     one == 2 && two == 3{
+            playerTwoPoints = playerTwoPoints + 1
+        }
+        if     one == 3 && two == 1{
+            playerTwoPoints = playerTwoPoints + 1
+        }
+        if     one == 2 && two == 3{
+            playerOnePoints = playerOnePoints + 1
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -61,3 +92,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+   
