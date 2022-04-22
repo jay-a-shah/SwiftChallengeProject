@@ -13,7 +13,9 @@ struct ContentView: View {
     @State var playerOneImage = "Stone"
     @State var playerTwoImage = "Paper"
     var body: some View {
-    
+        ZStack{
+            Color.white
+       
         VStack{
             Text("Points: \(playerOnePoints)")
                 .font(.system(size: 25))
@@ -38,6 +40,7 @@ struct ContentView: View {
             Text("Points: \(playerTwoPoints)")
                 .font(.system(size: 25))
                 .bold()
+        }
         }
     }
     
